@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OfficeApp 
+  xmlns="http://schemas.microsoft.com/office/appforoffice/1.1"
+  xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:type="TaskPaneApp">
+  
+  <!-- Генерация нового GUID обязательна -->
+  <Id>a1b2c3d4-e5f6-7890-g1h2-i3j4k5l6m7n8</Id>
+  <Version>1.0.0</Version>
+  <ProviderName>Your Company</ProviderName>
+  <DefaultLocale>en-US</DefaultLocale>
+  <DisplayName DefaultValue="Edge TTS"/>
+  <Description DefaultValue="Синтез речи через Edge TTS"/>
+  <SupportUrl DefaultValue="https://yourdomain.com/support"/>
+  <IconUrl DefaultValue="https://yourdomain.com/assets/icon-64.png"/>
+
+  <Hosts>
+    <Host Name="Document"/>
+  </Hosts>
+
+  <Requirements>
+    <Sets>
+      <Set Name="WordApi" MinVersion="1.1"/>
+    </Sets>
+  </Requirements>
+
+  <DefaultSettings>
+    <SourceLocation DefaultValue="https://www.contoso.com/taskpane.html"/>
+  </DefaultSettings>
+
+  <Permissions>ReadWriteDocument</Permissions>
+
+  <VersionOverrides xmlns="http://schemas.microsoft.com/office/taskpaneappversionoverrides" xsi:type="VersionOverridesV1_0">
+    <Hosts>
+      <Host xsi:type="Document">
+        <Runtimes>
+          <Runtime resid="TaskPane.Url" lifetime="long"/>
+        </Runtimes>
+        
+        <!-- Разрешенные домены теперь указываются здесь -->
+        <AllowedDomains>
+          <Domain>https://localhost:5000</Domain>
+          <Domain>https://yourdomain.com</Domain>
+        </AllowedDomains>
+        
+        <ExtensionPoint xsi:type="ContextMenu">
+          <OfficeMenu id="ContextMenuText">
+            <Control xsi:type="Button" id="EdgeTTSButton">
+              <Label resid="EdgeTTS.Label"/>
+              <Supertip>
+                <Title resid="EdgeTTS.Title"/>
+                <Description resid="EdgeTTS.Desc"/>
+              </Supertip>
+              <Icon>
+                <bt:Image size="16" resid="Icon.16x16"/>
+                <bt:Image size="32" resid="Icon.32x32"/>
+                <bt:Image size="80" resid="Icon.80x80"/>
+              </Icon>
+              <Action xsi:type="ExecuteFunction">
+                <FunctionName>synthesizeSpeech</FunctionName>
+              </Action>
+            </Control>
+          </OfficeMenu>
+        </ExtensionPoint>
+      </Host>
+    </Hosts>
+    
+    <Resources>
+      <bt:Images>
+        <bt:Image id="Icon.16x16" DefaultValue="https://yourdomain.com/assets/icon-16.png"/>
+        <bt:Image id="Icon.32x32" DefaultValue="https://yourdomain.com/assets/icon-32.png"/>
+        <bt:Image id="Icon.80x80" DefaultValue="https://yourdomain.com/assets/icon-80.png"/>
+      </bt:Images>
+      <bt:ShortStrings>
+        <bt:String id="EdgeTTS.Label" DefaultValue="Синтезировать речь"/>
+        <bt:String id="EdgeTTS.Title" DefaultValue="Edge TTS"/>
+      </bt:ShortStrings>
+      <bt:LongStrings>
+        <bt:String id="EdgeTTS.Desc" DefaultValue="Преобразует выделенный текст в речь"/>
+      </bt:LongStrings>
+    </Resources>
+  </VersionOverrides>
+</OfficeApp>
